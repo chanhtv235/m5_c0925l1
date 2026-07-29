@@ -1,6 +1,6 @@
 import {Component} from "react";
 import {Button, Modal} from "react-bootstrap";
-import {deleteById, getAll} from "../service/studentServicec.js";
+import {deleteById, getAll} from "../service/studentService.js";
 
 class DeleteModal extends Component {
     handleClose =()=>{

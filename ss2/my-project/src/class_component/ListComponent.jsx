@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {getAll} from "../service/studentServicec.js";
+import {getAll} from "../service/studentService.js";
 import {Modal} from "react-bootstrap";
 import DeleteModal from "./DeleteModal.jsx";
 

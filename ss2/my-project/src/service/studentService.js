@@ -16,6 +16,9 @@ export const getAll = ()=>{
     //call api
     return [...studentList];
 }
+export const addNew= (student)=>{
+    studentList.push(student)
+}
 export const deleteById = (id) =>{
     for (let i = 0; i <studentList.length ; i++) {
         if (studentList[i].id == id){
