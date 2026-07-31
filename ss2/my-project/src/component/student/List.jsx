@@ -1,8 +1,9 @@
 
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {getAll} from "../../service/studentService.js";
 import Delete from "./Delete.jsx";
 import Add from "./Add.jsx";
+import {Link} from "react-router-dom";
 
 const List = ()=>{
 
@@ -16,35 +17,30 @@ const List = ()=>{
         console.log("----useEffect---------")
         setStudentList([...getAll()])
     },[]);
-    useEffect(()=>{
-        return ()=>{
-            // làm gì đó trước khi component unmount;
-
-        }
+    const openModal = useCallback((student)=>{
+        setShowModal(true);
+        setDeleteStudent(student)
     },[])
-    const openModal = (student)=>{
-      setShowModal(true);
-      setDeleteStudent(student)
-    }
 
-    const closeModal = ()=>{
+    const closeModal = useCallback(()=>{
         setShowModal(false);
-    }
-    const reLoading = ()=>{
+    },[])
+    const reLoading = useCallback(()=>{
         setStudentList([...getAll()])
-    }
+    },[])
 
     return (
         <>
             {console.log("-------list render-------------")}
             <h2>Danh sách sinh viên</h2>
-            <Add reloading = {reLoading}/>
+            <Link to={'/dashboard/student/add'}>Add new</Link>
             <table className= {'table table-dark table-striped'}>
                 <thead>
                 <tr>
                     <th>STT</th>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Detail</th>
                     <th>Delete</th>
                 </tr>
                 </thead>
@@ -55,6 +51,9 @@ const List = ()=>{
                             <td>{i + 1}</td>
                             <td>{student.id}</td>
                             <td>{student.name}</td>
+                            <td>
+                                <Link to={`/dashboard/student/detail/${student.id}`}>Detail</Link>
+                            </td>
                             <td>
                                 <button onClick={()=>{
                                     openModal(student)

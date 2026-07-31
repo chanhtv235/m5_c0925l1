@@ -1,5 +1,6 @@
 import {Button, Modal} from "react-bootstrap";
 import {deleteById, getAll} from "../../service/studentService.js";
+import React from "react";
 const Delete =({show,student,reloading,close})=>{
    const handleClose =()=>{
         close();
@@ -11,7 +12,7 @@ const Delete =({show,student,reloading,close})=>{
     }
     return (
         <>
-            {console.log("----------delete run-------------")}
+            {console.log("----------delete render-------------")}
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Modal heading</Modal.Title>
@@ -31,4 +32,4 @@ const Delete =({show,student,reloading,close})=>{
         </>
     )
 }
-export default Delete;
+export default React.memo(Delete);

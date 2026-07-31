@@ -1,30 +1,48 @@
-import {useRef, useState} from "react";
-import {addNew, getAll} from "../../service/studentService.js";
-
-const Add = ({reloading})=>{
-    // const [student,setStudent] = useState({});
-    const idRef = useRef();
-    const nameRef = useRef();
-    const handleAdd = ()=>{
-        const newStudent = {
-            id: idRef.current.value,
-            name: nameRef.current.value,
-        }
-        idRef.current.value ="";
-        nameRef.current.value ="";
-        addNew(newStudent);
-        reloading();
+import React, {useRef, useState} from "react";
+import {addNew} from "../../service/studentService.js";
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import {Button} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
+import * as Yup from "yup";
+const Add = ()=>{
+    const navigate = useNavigate();
+    const handleAdd = (value)=>{
+       addNew(value);
+       toast.success("Them moi thanh cong",{
+           position: "top-left"
+       });
+       navigate("/dashboard/student");
     }
+    const validation = Yup.object({
+        id: Yup.number().required("Yêu cầu nhập").min(1,"Id phải dương"),
+        name: Yup.string().required("Yêu cầu nhập tên").matches(/^[A-Z][a-z]*(\s[A-Z][a-z]*)+$/,"Tên không đúng định dạng")
+    })
     return (
         <>
-            <div className={'w-50'}>
-                <h3>Thêm mới</h3>
-                <input ref={idRef} placeholder={'Nhập id'}/>
-                <input ref={nameRef} placeholder={'Nhập tên'}/>
-                <button onClick={handleAdd}>Lưu</button>
-            </div>
+            <Formik initialValues={{
+                id:"",
+                name:""
+            }} onSubmit={handleAdd} validationSchema={validation}>
+                <Form>
+                    <h3>Add new student</h3>
+                    <div>
+                        <label>ID</label>
+                        <Field name = {'id'}/>
+                        <ErrorMessage name={'id'} className={'text-danger'} component={'small'}/>
+                    </div>
+                    <div>
+                        <label>Name</label>
+                        <Field name = {'name'}/>
+                        <ErrorMessage name={'name'} className={'text-danger'} component={'small'}/>
+                    </div>
+                    <div>
+                        <Button type={'submit'}>Save</Button>
+                    </div>
+                </Form>
+            </Formik>
 
         </>
     )
 }
-export default Add;
+export default React.memo(Add);

@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {getAll} from "../service/studentService.js";
-import {Modal} from "react-bootstrap";
 import DeleteModal from "./DeleteModal.jsx";
 
 class ListComponent extends Component {
@@ -33,20 +32,10 @@ class ListComponent extends Component {
     }
     reLoading = ()=>{
         this.setState({
-            // studentList : [...getAll()],
+            studentList : [...getAll()],
             reloading : true,
         })
     }
-
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     if (prevState.reloading !== this.state.reloading){
-    //         this.setState({
-    //             studentList : [...getAll()],
-    //             reloading : false,
-    //         })
-    //     }
-    // }
-
 
     render() {
         return (

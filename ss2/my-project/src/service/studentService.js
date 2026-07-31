@@ -27,3 +27,11 @@ export const deleteById = (id) =>{
         }
     }
 }
+export const findById = (id) =>{
+    for (let i = 0; i <studentList.length ; i++) {
+        if (studentList[i].id == id){
+           return studentList[i];
+        }
+    }
+    return null;
+}
