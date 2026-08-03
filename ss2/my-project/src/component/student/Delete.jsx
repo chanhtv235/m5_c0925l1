@@ -1,14 +1,24 @@
 import {Button, Modal} from "react-bootstrap";
-import {deleteById, getAll} from "../../service/studentService.js";
+import {deleteById, findById, getAll} from "../../service/studentService.js";
 import React from "react";
+import {toast} from "react-toastify";
 const Delete =({show,student,reloading,close})=>{
    const handleClose =()=>{
         close();
     }
     const handleDelete =()=>{
-        deleteById(student.id);
-        reloading();
-        close();
+        const fetData =  async ()=>{
+            const isSuccess = await deleteById(student.id);
+            if (isSuccess){
+                reloading();
+                toast.success("Xoá thành công");
+            }else {
+                toast.error("Xoá không thành công");
+            }
+            close();
+        }
+        fetData();
+
     }
     return (
         <>

@@ -13,7 +13,7 @@ const Header = ({appName,address})=>{
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
                         <Link to={'/'}>Home</Link>
-                        <Link to={'/dashboard'}>Dasboard</Link>
+                        <Link className={'mx-lg-5'} to={'/dashboard'}>Dasboard</Link>
                         {/*<Link to={'/dashboard/student'}>List student</Link>*/}
                         {/*<Link to={'/dashboard/student/add'}>Add New</Link>*/}
                     </div>

@@ -1,0 +1,42 @@
+{
+  "students": [
+    {
+      "id": 7,
+      "name": "Chanh Tran",
+      "classCG": {
+        "id": 2,
+        "name": "c08"
+      }
+    },
+    {
+      "id": 8,
+      "name": "Admin Tran",
+      "classCG": {
+        "id": 1,
+        "name": "c09"
+      }
+    }
+  ],
+  "classes": [
+    {
+      "id": 1,
+      "name": "c09"
+    },
+    {
+      "id": 2,
+      "name": "c07"
+    }
+  ],
+  "accounts": [
+    {
+      "username": "chanhtv",
+      "password": 123,
+      "role": "ADMIN"
+    },
+    {
+      "username": "haitt",
+      "password": 123,
+      "role": "USER"
+    }
+  ]
+}

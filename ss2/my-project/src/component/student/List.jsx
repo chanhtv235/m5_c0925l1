@@ -2,21 +2,26 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {getAll} from "../../service/studentService.js";
 import Delete from "./Delete.jsx";
-import Add from "./Add.jsx";
 import {Link} from "react-router-dom";
 
 const List = ()=>{
 
     const [studentList, setStudentList] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [isReloading, setIsReloading] = useState(false);
     const [deleteStudent, setDeleteStudent] = useState({
         id:"",
         name:""
     });
+
     useEffect(() => {
         console.log("----useEffect---------")
-        setStudentList([...getAll()])
-    },[]);
+        const fetData =  async ()=>{
+            const list = await getAll();
+            setStudentList(list);
+        }
+        fetData();
+    },[isReloading]);
     const openModal = useCallback((student)=>{
         setShowModal(true);
         setDeleteStudent(student)
@@ -26,7 +31,7 @@ const List = ()=>{
         setShowModal(false);
     },[])
     const reLoading = useCallback(()=>{
-        setStudentList([...getAll()])
+        setIsReloading(pre=>!pre);
     },[])
 
     return (
@@ -40,6 +45,7 @@ const List = ()=>{
                     <th>STT</th>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Class name</th>
                     <th>Detail</th>
                     <th>Delete</th>
                 </tr>
@@ -51,6 +57,7 @@ const List = ()=>{
                             <td>{i + 1}</td>
                             <td>{student.id}</td>
                             <td>{student.name}</td>
+                            <td>{student.classCG?.name}</td>
                             <td>
                                 <Link to={`/dashboard/student/detail/${student.id}`}>Detail</Link>
                             </td>

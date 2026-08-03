@@ -8,14 +8,23 @@ import * as Yup from "yup";
 const Add = ()=>{
     const navigate = useNavigate();
     const handleAdd = (value)=>{
-       addNew(value);
-       toast.success("Them moi thanh cong",{
-           position: "top-left"
-       });
-       navigate("/dashboard/student");
+        const fetData = async ()=>{
+           let isSuccess =await addNew(value);
+           if (isSuccess){
+               toast.success("Them moi thanh cong",{
+                   position: "top-left"
+               });
+           }else {
+               toast.error("Them moi thất bại",{
+                   position: "top-left"
+               });
+           }
+            navigate("/dashboard/student");
+        }
+        fetData();
     }
     const validation = Yup.object({
-        id: Yup.number().required("Yêu cầu nhập").min(1,"Id phải dương"),
+        // id: Yup.number().required("Yêu cầu nhập").min(1,"Id phải dương"),
         name: Yup.string().required("Yêu cầu nhập tên").matches(/^[A-Z][a-z]*(\s[A-Z][a-z]*)+$/,"Tên không đúng định dạng")
     })
     return (
@@ -26,11 +35,11 @@ const Add = ()=>{
             }} onSubmit={handleAdd} validationSchema={validation}>
                 <Form>
                     <h3>Add new student</h3>
-                    <div>
-                        <label>ID</label>
-                        <Field name = {'id'}/>
-                        <ErrorMessage name={'id'} className={'text-danger'} component={'small'}/>
-                    </div>
+                    {/*<div>*/}
+                    {/*    <label>ID</label>*/}
+                    {/*    <Field name = {'id'}/>*/}
+                    {/*    <ErrorMessage name={'id'} className={'text-danger'} component={'small'}/>*/}
+                    {/*</div>*/}
                     <div>
                         <label>Name</label>
                         <Field name = {'name'}/>
@@ -45,4 +54,4 @@ const Add = ()=>{
         </>
     )
 }
-export default React.memo(Add);
+export default Add;
